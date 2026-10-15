@@ -1,0 +1,141 @@
+/* Tailwind로 처리하기 어려운 소량의 커스텀 스타일 */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 7rem; /* 고정 헤더에 가려지지 않도록 */
+}
+
+/* 배경 장식 원 (레퍼런스의 흐릿한 구체 느낌) */
+.blob {
+  position: fixed;
+  z-index: -10;
+  border-radius: 9999px;
+  filter: blur(70px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.blob-1 {
+  width: 360px;
+  height: 360px;
+  top: -140px;
+  left: -140px;
+  background: #bfdcff;
+}
+
+.blob-2 {
+  width: 300px;
+  height: 300px;
+  bottom: -120px;
+  right: -100px;
+  background: #cfe3ff;
+}
+
+.dark .blob {
+  opacity: 0.12;
+}
+
+/* 데스크톱 메뉴 밑줄 */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  border-radius: 9999px;
+  background: #1e90ff;
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.is-active::after {
+  width: 100%;
+}
+
+.nav-link.is-active,
+.nav-link-mobile.is-active {
+  color: #1e90ff;
+  font-weight: 700;
+}
+
+/* 스크롤 시 fade-in */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 히어로 떠다니는 카드 */
+.float-card {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* 기술 스택 숙련도 바 */
+.skill-bar {
+  height: 0.6rem;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 9999px;
+  background-color: #e3e9f2;
+}
+
+.dark .skill-bar {
+  background-color: #334155;
+}
+
+.skill-bar > span {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #1e90ff, #5fb3ff);
+  transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 프로젝트 카드 */
+.project-card {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 접근성: 움직임 줄이기 설정 존중 */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal,
+  .skill-bar > span {
+    transition: none;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .float-card {
+    animation: none;
+  }
+}
